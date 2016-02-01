@@ -664,7 +664,7 @@ cb_bus_call (GstBus * bus, GstMessage * msg, gpointer data)
       GError *err = NULL;
 
       gst_message_parse_error (msg, &err, NULL);
-      g_error ("Error: %s", err->message);
+      g_printerr ("Error: %s\n", err->message);
       g_error_free (err);
 
       g_main_loop_quit (loop);
