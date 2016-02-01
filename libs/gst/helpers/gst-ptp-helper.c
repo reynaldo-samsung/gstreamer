@@ -112,8 +112,9 @@ have_socket_data_cb (GSocket * socket, GIOCondition condition,
       g_io_channel_write_chars (stdout_channel, (gchar *) & header,
       sizeof (header), &written, &err);
   if (status == G_IO_STATUS_ERROR) {
-    g_error ("Failed to write to stdout: %s", err->message);
+    g_printerr ("Failed to write to stdout: %s\n", err->message);
     g_clear_error (&err);
+    exit (1);
   } else if (status == G_IO_STATUS_EOF) {
     g_message ("EOF on stdout");
     exit (0);
@@ -126,8 +127,9 @@ have_socket_data_cb (GSocket * socket, GIOCondition condition,
   status =
       g_io_channel_write_chars (stdout_channel, buffer, read, &written, &err);
   if (status == G_IO_STATUS_ERROR) {
-    g_error ("Failed to write to stdout: %s", err->message);
+    g_printerr ("Failed to write to stdout: %s\n", err->message);
     g_clear_error (&err);
+    exit (1);
   } else if (status == G_IO_STATUS_EOF) {
     g_message ("EOF on stdout");
     exit (0);
@@ -160,8 +162,9 @@ have_stdin_data_cb (GIOChannel * channel, GIOCondition condition,
       g_io_channel_read_chars (channel, (gchar *) & header, sizeof (header),
       &read, &err);
   if (status == G_IO_STATUS_ERROR) {
-    g_error ("Failed to read from stdin: %s", err->message);
+    g_printerr ("Failed to read from stdin: %s\n", err->message);
     g_clear_error (&err);
+    exit (1);
   } else if (status == G_IO_STATUS_EOF) {
     g_message ("EOF on stdin");
     exit (0);
@@ -175,8 +178,9 @@ have_stdin_data_cb (GIOChannel * channel, GIOCondition condition,
 
   status = g_io_channel_read_chars (channel, buffer, header.size, &read, &err);
   if (status == G_IO_STATUS_ERROR) {
-    g_error ("Failed to read from stdin: %s", err->message);
+    g_printerr ("Failed to read from stdin: %s\n", err->message);
     g_clear_error (&err);
+    exit (1);
   } else if (status == G_IO_STATUS_EOF) {
     g_message ("EOF on stdin");
     exit (0);
